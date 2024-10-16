@@ -29,9 +29,6 @@ export const useGetJob = (jobId: string) => {
     async (url: string) => {
       const response = await http.get(url);
       return response.data;
-    },
-    {
-      refreshInterval: 5000, // Refresh every 5 seconds to get an update of job's status
     }
   );
 

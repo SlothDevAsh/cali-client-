@@ -2,7 +2,7 @@ import { IJob, JOB_STATUSES } from "@/interfaces/job.interface";
 import { FC } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const JobCard: FC<IJob & { onPress: () => void }> = ({
+const JobCard: FC<IJob & { onPress?: () => void }> = ({
   imageUrl,
   jobId,
   status,
@@ -11,22 +11,36 @@ const JobCard: FC<IJob & { onPress: () => void }> = ({
 }) => {
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.5} onPress={onPress}>
-      <Text style={styles.jobId}>Job ID: {jobId}</Text>
-      <Text
-        style={[
-          styles.status,
-          status === "RESOLVED"
-            ? styles.resolved
-            : status === "PENDING"
-            ? styles.pending
-            : styles.rejected,
-        ]}
-      >
-        Status: {status}
-      </Text>
+      <Text style={styles.jobIdKey}>Job ID:</Text>
+      <Text style={styles.jobIdValue}>{jobId}</Text>
       {status === "RESOLVED" && (
         <Image source={{ uri: imageUrl }} style={styles.image} />
       )}
+
+      <View style={styles.statusContainer}>
+        <Text
+          style={[
+            styles.status,
+            status === "RESOLVED"
+              ? styles.resolved
+              : status === "PENDING"
+              ? styles.pending
+              : styles.rejected,
+          ]}
+        >
+          Status: {status}
+        </Text>
+      </View>
+
+      <Text style={styles.timestamp}>
+        Last Updated:{" "}
+        {new Date(timestamp).toLocaleTimeString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          //   month: "numeric",
+          day: "numeric",
+        })}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -46,12 +60,21 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    elevation: 5, // For Android shadow
+    elevation: 5,
   },
-  jobId: {
+  jobIdKey: {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5,
+  },
+  jobIdValue: {
+    fontSize: 15,
+    marginBottom: 5,
+  },
+  statusContainer: {
+    flex: 1,
+    alignItems: "flex-end",
+    justifyContent: "flex-start",
   },
   status: {
     fontSize: 14,
@@ -70,5 +93,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     borderRadius: 8,
+  },
+
+  timestamp: {
+    fontSize: 16,
+    marginTop: 20,
+    color: "#555",
   },
 });

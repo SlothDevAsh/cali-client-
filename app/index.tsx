@@ -16,6 +16,7 @@ import Button from "@/components/Button";
 import { router } from "expo-router";
 import { useSocket } from "@/services/socket";
 import { IJob } from "@/interfaces/job.interface";
+import Header from "@/components/Header";
 
 const Home = () => {
   const { jobs: fetchedJobs, refetchJobs, isLoading, isError } = useGetJobs();
@@ -31,8 +32,6 @@ const Home = () => {
   const handleCreateJob = async () => {
     try {
       await createJob();
-
-      await refetchJobs();
     } catch (error) {
       Alert.alert("Error", "Failed to create job");
     }
@@ -51,6 +50,7 @@ const Home = () => {
       // Listen for job status updates
       socket.on("jobStatusUpdate", (jobResult: IJob) => {
         // update the job using jobId
+
         setJobs((prevJobs) => {
           return prevJobs.map((job) =>
             job.jobId === jobResult.jobId ? { ...job, ...jobResult } : job
@@ -77,10 +77,11 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.parent}>
+      <Header title="Dish Dash" />
       {isLoading || isError ? (
         <Loader />
       ) : (
-        <>
+        <View style={styles.body}>
           <View style={styles.listContainer}>
             <FlatList
               data={jobs}
@@ -102,7 +103,7 @@ const Home = () => {
           <View style={styles.buttonContainer}>
             <Button onPress={handleCreateJob} loading={isCreating} />
           </View>
-        </>
+        </View>
       )}
     </SafeAreaView>
   );
@@ -113,10 +114,18 @@ export default Home;
 const styles = StyleSheet.create({
   parent: {
     flex: 1,
-    backgroundColor: "#f2f2f7", // Light grey with a hint of blue
+    backgroundColor: "#f2f2f7",
     paddingHorizontal: 15,
     paddingTop: 10,
   },
-  listContainer: { flex: 0.9 },
-  buttonContainer: { flex: 0.1 },
+  body: {
+    flex: 1,
+    marginTop: 20,
+  },
+  listContainer: {
+    flex: 0.9,
+  },
+  buttonContainer: {
+    flex: 0.1,
+  },
 });

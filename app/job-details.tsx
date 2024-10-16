@@ -4,6 +4,9 @@ import { useGetJob } from "@/hooks/useJob";
 import Loader from "@/components/Loader";
 import { useLocalSearchParams } from "expo-router";
 import { JOB_STATUSES } from "@/interfaces/job.interface";
+import Header from "@/components/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
+import JobCard from "@/components/JobCard";
 
 interface params {
   jobId: string;
@@ -17,40 +20,14 @@ const JobDetails = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Header title="Job Details" />
       {job && (
-        <>
-          <Text style={styles.title}>Job Details</Text>
-          <Text style={styles.jobId}>Job ID: {job.jobId}</Text>
-          <Text style={styles.status}>
-            Status:{" "}
-            <Text
-              style={
-                job.status === JOB_STATUSES.RESOLVED
-                  ? styles.resolved
-                  : job.status === JOB_STATUSES.PENDING
-                  ? styles.pending
-                  : styles.rejected
-              }
-            >
-              {job.status}
-            </Text>
-          </Text>
-          {job.status === "RESOLVED" && (
-            <Image source={{ uri: job.imageUrl }} style={styles.image} />
-          )}
-          <Text style={styles.timestamp}>
-            Last Updated:{" "}
-            {new Date(job.timestamp).toLocaleTimeString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              //   month: "numeric",
-              day: "numeric",
-            })}
-          </Text>
-        </>
+        <View style={styles.cardContainer}>
+          <JobCard {...job} />
+        </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -59,51 +36,11 @@ export default JobDetails;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f2f2f7",
+    paddingHorizontal: 15,
+    paddingTop: 10,
   },
-  loading: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  error: {
-    color: "red",
-    textAlign: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  jobId: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  status: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  resolved: {
-    color: "green",
-  },
-  pending: {
-    color: "orange",
-  },
-  rejected: {
-    color: "red",
-  },
-  imageUrl: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  timestamp: {
-    fontSize: 16,
+  cardContainer: {
     marginTop: 20,
-    color: "#555",
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
   },
 });
