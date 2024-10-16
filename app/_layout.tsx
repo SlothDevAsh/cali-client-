@@ -1,4 +1,5 @@
 import config from "@/config/swr.config";
+import { SocketProvider } from "@/services/socket";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -26,14 +27,16 @@ export default function RootLayout() {
 
   return (
     <SWRConfig value={config}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="job-details" />
-      </Stack>
+      <SocketProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="index" />
+          <Stack.Screen name="job-details" />
+        </Stack>
+      </SocketProvider>
     </SWRConfig>
   );
 }

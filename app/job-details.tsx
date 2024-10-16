@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, ActivityIndicator, Image } from "react-native";
-import { useGetJob } from "@/hooks/useJob"; // Adjust the import based on your hook's path
-import { useRoute } from "@react-navigation/native"; // Assuming you're using React Navigation
+import { View, Text, StyleSheet, Image } from "react-native";
+import { useGetJob } from "@/hooks/useJob";
 import Loader from "@/components/Loader";
 import { useLocalSearchParams } from "expo-router";
 import { JOB_STATUSES } from "@/interfaces/job.interface";
@@ -10,8 +9,6 @@ interface params {
   jobId: string;
 }
 const JobDetails = () => {
-  const route = useRoute();
-
   const { jobId } = useLocalSearchParams() as unknown as params;
   const { job, isLoading, isError } = useGetJob(jobId);
 
