@@ -1,50 +1,70 @@
-# Welcome to your Expo app 👋
+# Dish Dash
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Project Overview
 
-## Get started
+This frontend application, **Dish Dash**, is built using Expo and is designed to provide a seamless user experience for job management. The app communicates with a backend that handles job processing and real-time updates using Express, RabbitMQ, and Socket.IO.
 
-1. Install dependencies
+### Basic Structure
 
+- **Expo**: A framework and platform for universal React applications, allowing for quick development and easy deployment on both iOS and Android platforms.
+
+- **Socket.IO**: This library is used to enable real-time, bidirectional communication between the frontend and backend. It allows the app to inform users immediately when there is a job status update, ensuring a responsive and interactive user experience.
+
+## Setup Instructions
+
+### Prerequisites
+
+1. **Node.js**: Ensure you have Node.js installed on your machine.
+
+2. **Expo CLI**: You need to install Expo CLI globally if you haven't already:
    ```bash
-   npm install
+   npm install -g expo-cli
    ```
 
-2. Start the app
+### Setup Frontend
+
+To set up the frontend application, follow these steps:
+
+1. **Clone the Repository**
 
    ```bash
-    npx expo start
+   git clone git@github.com:SlothDevAsh/calo-client.git
    ```
 
-In the output, you'll find options to open the app in a
+2. **Install Dependencies**
+   Navigate to the cloned directory and install dependencies using the command:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+   yarn install
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+3. **Set Up Environment Variables**
+   In the same folder, create a `.env` file and add the below necessary environment variables. Replace `localhost` with your actual IP address if needed:
 
-## Get a fresh project
+   ```bash
+   EXPO_PUBLIC_API_URL=http://localhost:4000/
+   EXPO_PUBLIC_SOCKET_URL=http://localhost:4000/
+   ```
 
-When you're ready, run:
+4. **Start the Server**
+   Make sure that the backend server is already running on your machine.
+   ```bash
+   yarn run dev
+   ```
+   This command will start the Expo development server, allowing you to view the app on your device or simulator.
 
-```bash
-npm run reset-project
-```
+## Time Report
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+| Section              | Time Spent |
+| -------------------- | ---------- |
+| Basic Structure      | 20 minutes |
+| Implementing UI      | 30 minutes |
+| Implementing API'S   | 30 minutes |
+| Setting Up Socket.IO | 10 minutes |
+| Testing              | 30 minutes |
 
-## Learn more
+## Demo Link
 
-To learn more about developing your project with Expo, look at the following resources:
+Here is the demo link: [Watch Demo](YOUR_DEMO_LINK_HERE)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Note:** Please be aware that the delays for job processing shown in the demo video are shorter than the actual delays associated with real job submissions in the application. The demo video has been kept concise for clarity and to focus on the key functionalities.
