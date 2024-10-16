@@ -46,7 +46,7 @@ To set up the frontend application, follow these steps:
    EXPO_PUBLIC_SOCKET_URL=http://localhost:4000/
    ```
 
-4. **Start the Server**
+4. **Run the App**
    Make sure that the backend server is already running on your machine.
    ```bash
    yarn run android
