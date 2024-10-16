@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { FC } from "react";
+import { Colors } from "@/constants/Colors";
 
 interface props {
   title: string;
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#007AFF",
+    backgroundColor: Colors.heading,
     paddingVertical: 10,
     paddingHorizontal: 15,
   },

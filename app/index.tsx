@@ -17,6 +17,8 @@ import { router } from "expo-router";
 import { useSocket } from "@/services/socket";
 import { IJob } from "@/interfaces/job.interface";
 import Header from "@/components/Header";
+import Error from "@/components/Error";
+import EmptyList from "@/components/EmptyList";
 
 const Home = () => {
   const { jobs: fetchedJobs, refetchJobs, isLoading, isError } = useGetJobs();
@@ -78,27 +80,36 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.parent}>
       <Header title="Dish Dash" />
-      {isLoading || isError ? (
+      {isLoading ? (
         <Loader />
+      ) : isError ? (
+        <Error />
       ) : (
         <View style={styles.body}>
-          <View style={styles.listContainer}>
-            <FlatList
-              data={jobs}
-              keyExtractor={(item) => item.jobId}
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-              }
-              renderItem={({ item }) => (
-                <JobCard
-                  {...item}
-                  onPress={() => {
-                    handleCardPress(item.jobId);
-                  }}
-                />
-              )}
-            />
-          </View>
+          {jobs.length > 0 ? (
+            <View style={styles.listContainer}>
+              <FlatList
+                data={jobs}
+                keyExtractor={(item) => item.jobId}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
+                renderItem={({ item }) => (
+                  <JobCard
+                    {...item}
+                    onPress={() => {
+                      handleCardPress(item.jobId);
+                    }}
+                  />
+                )}
+              />
+            </View>
+          ) : (
+            <EmptyList />
+          )}
 
           <View style={styles.buttonContainer}>
             <Button onPress={handleCreateJob} loading={isCreating} />

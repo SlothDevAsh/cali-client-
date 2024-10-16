@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { FC } from "react";
 import Loader from "./Loader";
+import { Colors } from "@/constants/Colors";
 
 interface props {
   onPress: () => void;
@@ -15,7 +16,7 @@ const Button: FC<props> = ({ onPress, loading }) => {
       disabled={loading}
     >
       {loading ? (
-        <Loader size={15} color={"white"} />
+        <Loader size={20} color={"white"} />
       ) : (
         <Text style={styles.buttonText}>Create Job</Text>
       )}
@@ -27,7 +28,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#4CAF50", // Green background color
+    backgroundColor: Colors.button,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   buttonText: {
-    color: "#FFFFFF", // White text color
+    color: Colors.buttonText,
     fontSize: 16,
     fontWeight: "600",
   },
