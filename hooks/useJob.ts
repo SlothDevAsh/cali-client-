@@ -4,22 +4,20 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 
 export const useGetJobs = () => {
-  const { data, error, isLoading, mutate } = useSWR<IJob[]>(
+  const { data, error, isMutating, reset, trigger } = useSWRMutation(
     "/jobs",
-    async () => {
-      const response = await http.get("/jobs");
+    async (url) => {
+      const response = await http.get<IJob[]>("/jobs");
+
       return response.data;
     }
   );
 
   return {
     jobs: data,
-    isLoading,
+    isLoading: isMutating,
     isError: error,
-    refetchJobs: () =>
-      mutate(undefined, {
-        revalidate: true,
-      }),
+    trigger,
   };
 };
 
@@ -27,7 +25,7 @@ export const useGetJob = (jobId: string) => {
   const { data, error, isLoading, mutate } = useSWR<IJob>(
     jobId ? `/jobs/${jobId}` : null,
     async (url: string) => {
-      const response = await http.get(url);
+      const response = await http.get<IJob>(url);
       return response.data;
     }
   );

@@ -21,7 +21,7 @@ import Error from "@/components/Error";
 import EmptyList from "@/components/EmptyList";
 
 const Home = () => {
-  const { jobs: fetchedJobs, refetchJobs, isLoading, isError } = useGetJobs();
+  const { jobs: fetchedJobs, trigger, isLoading, isError } = useGetJobs();
 
   const socket = useSocket();
 
@@ -51,12 +51,21 @@ const Home = () => {
     if (socket) {
       // Listen for job status updates
       socket.on("jobStatusUpdate", (jobResult: IJob) => {
-        // update the job using jobId
-
         setJobs((prevJobs) => {
-          return prevJobs.map((job) =>
-            job.jobId === jobResult.jobId ? { ...job, ...jobResult } : job
+          // Check if the job already exists
+          const jobExists = prevJobs.some(
+            (job) => job.jobId === jobResult.jobId
           );
+
+          if (jobExists) {
+            // Update existing job
+            return prevJobs.map((job) =>
+              job.jobId === jobResult.jobId ? { ...job, ...jobResult } : job
+            );
+          } else {
+            // Add new job
+            return [jobResult, ...prevJobs];
+          }
         });
       });
 
@@ -66,16 +75,29 @@ const Home = () => {
     }
   }, [socket]);
 
-  // set jobs if fetchedJobs changes
-  useEffect(() => {
-    if (fetchedJobs) setJobs(fetchedJobs);
-  }, [fetchedJobs]);
-
   const onRefresh = async () => {
     setRefreshing(true);
-    await refetchJobs();
-    setRefreshing(false);
+
+    try {
+      const data = await trigger();
+
+      if (data) setJobs(data);
+      setRefreshing(false);
+    } catch (error) {
+      console.log(error);
+      setRefreshing(false);
+    }
   };
+
+  // Trigger the initial fetch on component mount
+  useEffect(() => {
+    const fetchInitialJobs = async () => {
+      const data = await trigger();
+      if (data) setJobs(data);
+    };
+
+    fetchInitialJobs();
+  }, [trigger]);
 
   return (
     <SafeAreaView style={styles.parent}>
