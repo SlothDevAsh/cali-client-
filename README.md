@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This frontend application, **Dish Dash**, is built using Expo and is designed to provide a seamless user experience for job management. The app communicates with a backend that handles job processing and real-time updates using Express, RabbitMQ, and Socket.IO.
+This mobile application, **Dish Dash**, is built using Expo and is designed to provide a seamless user experience for job management. The app communicates with a backend that handles job processing and real-time updates using Express, RabbitMQ, and Socket.IO.
 
 ### Basic Structure
 
@@ -46,10 +46,10 @@ To set up the frontend application, follow these steps:
    EXPO_PUBLIC_SOCKET_URL=http://localhost:4000/
    ```
 
-4. **Start the Server**
+4. **Run the App**
    Make sure that the backend server is already running on your machine.
    ```bash
-   yarn run dev
+   yarn run android
    ```
    This command will start the Expo development server, allowing you to view the app on your device or simulator.
 
@@ -65,6 +65,6 @@ To set up the frontend application, follow these steps:
 
 ## Demo Link
 
-Here is the demo link: [Watch Demo](YOUR_DEMO_LINK_HERE)
+Here is the demo link: [Watch Demo](https://www.youtube.com/shorts/zFykaLDcoIg)
 
 **Note:** Please be aware that the delays for job processing shown in the demo video are shorter than the actual delays associated with real job submissions in the application. The demo video has been kept concise for clarity and to focus on the key functionalities.
