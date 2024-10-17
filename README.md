@@ -61,7 +61,7 @@ To set up the frontend application, follow these steps:
 | Implementing UI      | 30 minutes |
 | Implementing API'S   | 30 minutes |
 | Setting Up Socket.IO | 10 minutes |
-| Testing              | 30 minutes |
+| Testing              | 45 minutes |
 
 ## Demo Link
 
